@@ -1,6 +1,6 @@
-# Calculator
+# CalculatorEngine
 
-Calculator is a simple text-based calculator app made in Java.
+CalculatorEngine is a simple text-based calculator app made in Java.
    
 
 ## Operands
@@ -46,7 +46,8 @@ Syntax: *&lt;expression&gt; &lt;operator&gt;  &lt;expression&gt;*
    
 
 ## Unary operators
-Syntax: *&lt;expression&gt; &lt;operator&gt;*
+Negation syntax: *&lt;expression&gt; &lt;operator&gt;* <br>
+Function syntax: *&lt;operator&gt; (&lt;expression&gt;)*
 
 <table>
     <tr>
@@ -57,37 +58,37 @@ Syntax: *&lt;expression&gt; &lt;operator&gt;*
     <tr>
         <td>Negation</td>
         <td style="text-align:center">-</td>
-        <td></td>
+        <td>-1 + 3 = 2</td>
     </tr>
     <tr>
         <td>Sine</td>
-        <td style="text-align:center">sin</td>
-        <td></td>
+        <td style="text-align:center">sin()</td>
+        <td>sin(30) = &frac12 </td>
     </tr>    
     <tr>
         <td>Cosine</td>
-        <td style="text-align:center">cos</td>
-        <td></td>
+        <td style="text-align:center">cos()</td>
+        <td>cos(90) = 0</td>
     </tr>    
     <tr>
         <td>Tangent</td>
-        <td style="text-align:center">tan</td>
-        <td></td>
+        <td style="text-align:center">tan()</td>
+        <td>tan(45) = 1</td>
     </tr>
     <tr>
         <td>Cotangent</td>
-        <td style="text-align:center">cot</td>
-        <td></td>
+        <td style="text-align:center">cot()</td>
+        <td>cot(90) = 0</td>
     </tr>
     <tr>
         <td>Natural log (log<sub>e</sub>)</td>
-        <td style="text-align:center">ln</td>
-        <td></td>
+        <td style="text-align:center">ln()</td>
+        <td>ln(e) = 1</td>
     </tr>
     <tr>
         <td>Decimal log (log<sub>10</sub>)</td>
-        <td style="text-align:center">log</td>
-        <td></td>
+        <td style="text-align:center">log()</td>
+        <td>log(100) = 2</td>
     </tr>
 </table>
 
@@ -118,4 +119,5 @@ Output: 4
 * Each operator must be used with its respective number of operands.
     - eg. The expression "*10/5*" is valid, but "*/5*" is missing its left operand.
 * No mismatched grouping parentheses; each '(' requires a matching ')'.
-* Whitespace padding is optional.
+* Function-call parentheses are mandatory.
+* **Spaces are optional and have no effect on expression evaluation.**
