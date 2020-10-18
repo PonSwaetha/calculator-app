@@ -6,9 +6,20 @@ package com.cwu.cs480;
  */
 public class Calculator {
 
-
-    private static final String EXIT_COMMAND = "EXIT";
+    private static final String WELCOME_MSG = "stub";
+    private static final String EXIT_CMD = "EXIT";
     private CalculatorEngine engine;
+
+    /**
+     * Execute the user's expression.
+     * @param expression the expression being evaluated.
+     * @return the result of the calculation as a String.
+     */
+    public String calculate(String expression) {
+        // stub
+        engine.parseToRPN(expression);
+        return "";
+    }
 
     /**
      * Prompt user to enter a mathematical expression via console input.
@@ -17,26 +28,9 @@ public class Calculator {
     private String getInput() {
         String input = "";
         // stub
-        return input.replace(" ", "");  // remove spaces from input
+        return input;
     }
 
-    /**
-     * Execute the user's expression.
-     * @param expression the expression being evaluated.
-     * @return the result of the calculation.
-     */
-    public double calculate(String expression) {
-        // stub
-        engine = new CalculatorEngine(expression);
-        return 0;
-    }
-
-    /**
-     * Prints results of calculation (or error message if it failed).
-     */
-    public void printResult() {
-        //stub
-    }
 
     /**
      * Entry point for the Calculator application.
@@ -45,15 +39,14 @@ public class Calculator {
     public static void main(String[] args) {
 
         Calculator calculator = new Calculator();
+        System.out.println(WELCOME_MSG);
 
-        for (String expression = calculator.getInput(); expression.compareToIgnoreCase(EXIT_COMMAND) != 0;
+        // loop until user enters the exit command
+        for (String expression = calculator.getInput(); expression.compareToIgnoreCase(EXIT_CMD) != 0;
              expression = calculator.getInput()) {
 
-            calculator.calculate(expression);
-            calculator.printResult();
-
-            expression = calculator.getInput();     //
+            System.out.println(calculator.calculate(expression));
         }
     }
 
-}
+} // Calculator
