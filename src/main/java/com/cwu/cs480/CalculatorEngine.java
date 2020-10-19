@@ -1,5 +1,6 @@
 package com.cwu.cs480;
 
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -13,7 +14,18 @@ public class CalculatorEngine {
     private Stack<String> opStack;
     private Queue<String> outputQueue;
 
-    private int errorCode;
+    /* Supported operations and functions */
+    private final String OPERATIONS = "+-*/^";
+    private final String NEGATION_ALIAS = "~";  // alias for unary minus sign
+    private final String[] FUNCTIONS = {
+            "sin",
+            "cos",
+            "tan",
+            "cot",
+            "log",
+            "ln"
+    };
+    //private int errorCode;
     private static final Map<Integer, String> ERROR_MESSAGES = Map.of(
             0, "",
             100, "Division by zero.",
@@ -25,6 +37,8 @@ public class CalculatorEngine {
             900, "Internal overflow",
             901, "Internal underflow"
     );
+
+    //private static final String opcodes =
 
     /**
      * Parameterized constructor.
@@ -38,22 +52,23 @@ public class CalculatorEngine {
     /**
      * Convert expression from infix to postfix (RPN) while performing a syntax check. If successful, tokenized
      * result is stored in RPNStack.
-     * @return true if successful, false if error occurred.
+     * @param expression the expression being parsed.
+     * @throws ParseException
      */
-    protected boolean parseToRPN(String expression) {
+    protected void parseToRPN(String expression) throws ParseException {
         // stub
         expression.replace(" ", "")
         .replace("(-", "(0-");  // handle unary minus signs
-        return true;
+        //return true;
     }
 
     /**
      * Evaluate the RPN expression and return the result.
-     * @return true if successful, false if error occurred.
+     * @throws ParseException
      */
-    protected boolean evaluate() {
+    protected void evaluate() throws ParseException {
         // stub
-        return true;
+        //return true;
     }
 
     /* GETTERS */
