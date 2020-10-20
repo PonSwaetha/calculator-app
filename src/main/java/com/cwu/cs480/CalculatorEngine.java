@@ -52,20 +52,24 @@ public class CalculatorEngine {
             Token.Type tokenType = null;
 
             // parse token
-            if (Token.isOperator(strToken)) {
-                if (strToken.equals("-") && (firstLocalToken || lastToken.isOperator())) {
-                    strToken = "_";                 // handle unary negation
+            if (Token.isToken(Token.Type.GROUPING_OPERATOR, strToken)) {
+                tokenType = Token.Type.GROUPING_OPERATOR;
+            }
+            else if (Token.isToken(Token.Type.BINARY_OPERATOR, strToken)) {
+                if (strToken.equals("-") && (firstLocalToken || !lastToken.isToken(Token.Type.OPERAND))) {
+                    strToken = "_";                         // unary negation symbol
                     tokenType = Token.Type.UNARY_OPERATOR;
                 } else {
                     tokenType = Token.Type.BINARY_OPERATOR;
                 }
-            } else if (Token.isParsable(strToken)) {
+            }
+            else if (Token.isToken(Token.Type.UNARY_OPERATOR, strToken)) {
+                tokenType = Token.Type.UNARY_OPERATOR;
+            }
+            else if (Token.isToken(Token.Type.OPERAND, strToken)) {
                 tokenType = Token.Type.OPERAND;
-            } else if (strToken.compareTo("(") == 0) {
-
-            } else if (strToken.compareTo(")") == 0) {
-
-            } else {
+            }
+            else {
                 // error message: unknown token: {strToken}
                 // return
             }

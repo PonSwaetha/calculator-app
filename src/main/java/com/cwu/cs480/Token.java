@@ -2,6 +2,8 @@ package com.cwu.cs480;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -15,9 +17,16 @@ public class Token implements Comparable<Token> {
         GROUPING_OPERATOR,
         OPERAND
     }
-
     /* Supported operations and functions */
-    private static final String OPERATORS = "+-*/^";
+    // safe & efficient way to use an enum as an array index
+    private static final EnumMap<Type, String[]> OPERATORS = new EnumMap<>(Map.of(
+            Type.GROUPING_OPERATOR, new String[] {"(", ")"},
+            Type.BINARY_OPERATOR, new String[] {"+", "-", "*", "/"},
+            Type.UNARY_OPERATOR, new String[] {"^", "-", "sin", "cos", "tan", "cot", "log", "ln"}
+    ));
+
+    //private static final String OPERATORS = "+-*/^";
+    private static final String GROUPING_OPERATORS = "()";
     private static final String[] FUNCTIONS = {         // include these with unary operators?
             "sin",
             "cos",
@@ -41,43 +50,38 @@ public class Token implements Comparable<Token> {
     }
 
     /**
-     * Checks whether the token is a valid function.
-     * @param token the token being checked.
-     * @return {@code true} if the token is a valid function.
+     * Generic token validity check for each Type.
+     * @param type the Type we are validating this token string against.
+     * @param token the string token being validated.
+     * @return {@code true} if {@code token} is a valid token of type {@code type}; {@code false} if not.
      */
-    public static boolean isFunction(String token) {
-        for (String strIdx: FUNCTIONS) {
-            if (strIdx.compareToIgnoreCase(token) == 0) {   // check if token matches one of our functions
-                return true;
+    public static boolean isToken(Type type, String token) {
+
+        if (type == Type.OPERAND) {
+            return isParsable(token);   // call Apache NumberUtils.isParsable()
+        } else {    // if type is an OPERATOR
+            // string length pre-check
+            if (token.length() != 1 && (type == Type.BINARY_OPERATOR || type == Type.GROUPING_OPERATOR)) {
+                return false;
+            }
+            // check for matches in the operators array corresponding to this type
+            for (String strIdx : OPERATORS.get(type)) {
+                if (strIdx.equals(token)) {
+                    return true;
+                }
             }
         }
-        return false;       // false if no match found
-    }
+        return false;       // if no match was found
+    } // isTokenA
 
     /**
-     * Static operator validity check.
-     * @param token the token being checked.
-     * @return {@code true} if the token argument is a valid operator.
+     * A non-static overload of {@link #isToken}, which checks token validity based on its Type.
+     * @param type the Type we are validating this Token object against.
+     * @return {@code true} if {@code this.value} is a valid token of type {@code type}; {@code false} if not.
      */
-    public static boolean isOperator(String token) {
-        if (token.length() != 1) {      // must be a single char
-            return false;
-        }
-        for (char chIdx: OPERATORS.toCharArray()) {     // check if token matches one of our operators
-            if (token.charAt(0) == chIdx) {
-                return true;
-            }
-        }
-        return false;       // false if no match found
-    }
-
-    /**
-     * Non-static operator validity check.
-     * @return {@code true} if this Token is a valid operator.
-     */
-    public boolean isOperator() {
-        return isOperator(this.value);
-    }
+    public boolean isToken(Type type) {
+        return isToken(type, this.value);
+    } // isTokenA
 
     /**
      * Determines the precedence level of an operator.
