@@ -28,7 +28,7 @@ public class Calculator {
     private String getInput() {
         String input = "";
         // stub
-        return input;
+        return input.stripLeading().stripTrailing();    // remove leading/trailing whitespace
     }
 
 
