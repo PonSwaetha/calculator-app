@@ -9,44 +9,59 @@ import java.util.Objects;
 /**
  * Class representing a token within a mathematical expression.
  */
-public class Token implements Comparable<Token> {
-
-    enum Type {
-        BINARY_OPERATOR,
-        UNARY_OPERATOR,
-        GROUPING_OPERATOR,
-        OPERAND
-    }
-    /* Supported operations and functions */
-    // safe & efficient way to use an enum as an array index
-    private static final EnumMap<Type, String[]> OPERATORS = new EnumMap<>(Map.of(
-            Type.GROUPING_OPERATOR, new String[] {"(", ")"},
-            Type.BINARY_OPERATOR, new String[] {"+", "-", "*", "/"},
-            Type.UNARY_OPERATOR, new String[] {"^", "-", "sin", "cos", "tan", "cot", "log", "ln"}
-    ));
-
-    //private static final String OPERATORS = "+-*/^";
-    private static final String GROUPING_OPERATORS = "()";
-    private static final String[] FUNCTIONS = {         // include these with unary operators?
-            "sin",
-            "cos",
-            "tan",
-            "cot",
-            "log",
-            "ln"
-    };
+public class MyToken implements Comparable<MyToken> {
 
     String value;
     Type type;
 
     /**
-     * Parameterized Token constructor.
-     * @param value Token value.
-     * @param type Token type.
+     * Parameterized MyToken constructor.
+     * @param value MyToken value.
+     * @param type MyToken type.
      */
-    Token (String value, Type type) {
+    MyToken(String value, Type type) {
         this.value = value;
         this.type = type;
+    }
+
+    enum Type {
+        GROUPING_OPERATOR,
+        UNARY_OPERATOR,
+        BINARY_OPERATOR,
+        OPERAND
+    }
+
+    enum Associativity {
+        NONE,
+        LEFT_TO_RIGHT,
+        RIGHT_TO_LEFT
+    }
+
+    /* Supported operations and functions */
+    private static final EnumMap<Type, String[]> OPERATORS = new EnumMap<>(Map.of(
+            Type.GROUPING_OPERATOR, new String[] {"(", ")"},
+            Type.UNARY_OPERATOR, new String[] {"-", "sin[", "cos[", "tan[", "cot[", "log[", "ln["},
+            Type.BINARY_OPERATOR, new String[] {"^", "*", "/", "+", "-"}
+    ));
+
+    /**
+     * Parse a string to determine if it's a valid token.
+     * @param token string being parsed.
+     * @return If token is valid, return its {@code Type}. If invalid, return {@code null}.
+     */
+    public static Type parseToken(String token) {
+        Type tokenType = null;
+        // validate the token
+        if (isToken(Type.GROUPING_OPERATOR, token)) {
+            tokenType = Type.GROUPING_OPERATOR;
+        } else if (isToken(Type.BINARY_OPERATOR, token)) {      // must parse binary ops first, because of unary minus
+            tokenType = Type.BINARY_OPERATOR;
+        } else if (isToken(Type.UNARY_OPERATOR, token)) {
+            tokenType = Type.UNARY_OPERATOR;
+        } else if (isToken(Type.OPERAND, token)) {
+            tokenType = Type.OPERAND;
+        }
+        return tokenType;       // null if no match found
     }
 
     /**
@@ -72,60 +87,100 @@ public class Token implements Comparable<Token> {
             }
         }
         return false;       // if no match was found
-    } // isTokenA
+    } // isToken
 
     /**
-     * A non-static overload of {@link #isToken}, which checks token validity based on its Type.
-     * @param type the Type we are validating this Token object against.
+     * A non-static override of {@link #isToken(Type, String)}, which checks token validity based on its Type.
+     * @param type the Type we are validating this MyToken object against.
      * @return {@code true} if {@code this.value} is a valid token of type {@code type}; {@code false} if not.
      */
     public boolean isToken(Type type) {
-        return isToken(type, this.value);
-    } // isTokenA
+        return (this.type == type);
+    } // isToken
 
     /**
-     * Determines the precedence level of an operator.
-     * @param operator the operator being checked.
+     * Determines the precedence level of a token.
+     * @param token the token being checked.
      * @return the precedence level as an int.
      */
-    public static int opPrecedence(String operator) {
-        int precedence;
-        switch (operator.charAt(0))
+    public static int getPrecedence(MyToken token) {
+        switch (token.getType())
         {
-            case '_':               // Unary negation
-                precedence = 4;
-                break;
-            case '^':               // Exponentiation
-                precedence = 3;
-                break;
-            case '*':               // Multiplication
-            case '/':               // Division
-                precedence = 2;
-                break;
-            case '+':               // Addition
-            case '-':               // Subtraction
-                precedence = 1;
-                break;
-            default:    // invalid operator-- this should never happen because we validate first
-                precedence = Integer.MIN_VALUE;
+            case GROUPING_OPERATOR:
+                if (token.value.equals("(")) {
+                    return 5;         // Open parenthesis
+                } else {
+                    return 0;         // Close parenthesis
+                }
+            case UNARY_OPERATOR:
+                if (token.value.equals("-")) {
+                    return 3;         // Unary negation
+                } else {
+                    return 5;         // Functions
+                }
+            case BINARY_OPERATOR:
+            switch (token.getValue()) {
+                case "^":               // Exponentiation
+                    return 4;
+                case "*":               // Multiplication
+                case "/":               // Division
+                    return 2;
+                case "+":                // Addition
+                case "-":                // Subtraction
+                    return 1;
+            }
+            case OPERAND:
+                return 0;
+            default:    // invalid/null token-- this should never happen because we validate first
+                return Integer.MIN_VALUE;
         }
-        return precedence;
     }
 
     /**
-     * Compare two Token objects based on <strong>operator precedence</strong>.
+     * A non-static override of {@link #getPrecedence(MyToken)}, which returns the precedence of a token.
+     * @return the precedence level as an int.
+     */
+    public int getPrecedence() {
+        return getPrecedence(this);
+    }
+
+    public static Associativity getAssociativity(MyToken token) {
+        switch (token.getType()) {
+            case UNARY_OPERATOR:
+                if (token.value.equals("-")) {
+                    return Associativity.RIGHT_TO_LEFT;
+                } else {
+                    return Associativity.NONE;      // functions
+                }
+            case BINARY_OPERATOR:
+                if (token.value.equals("^")) {
+                    return Associativity.RIGHT_TO_LEFT;
+                } else {
+                    return Associativity.LEFT_TO_RIGHT;
+                }
+            default:
+                return Associativity.NONE;      // grouping & operands
+        }
+    }
+
+    public Associativity getAssociativity() {
+        return getAssociativity(this);
+    }
+
+    /**
+     * Compare two MyToken objects based on <strong>operator precedence</strong>.
      * <p>Note: not intended to be used with operand Tokens.</p>
-     * @param o the operator Token we are comparing against.
+     * @param o the operator MyToken we are comparing against.
      * @return {@code 0} if equal precedence, {@code 1} if this operator takes precedence, {@code -1} if other operator takes precedence.
      */
     @Override
-    public int compareTo(@NotNull Token o) {
-        return Integer.compare(Token.opPrecedence(this.value), Token.opPrecedence(o.value));
+    public int compareTo(@NotNull MyToken o) {
+        return Integer.compare(this.getPrecedence(), o.getPrecedence());
     }
 
     /**
-     * Check for equality between two Token objects based on <strong>value and type</strong>.
-     * @param obj the Token object we are comparing against
+     * Check for equality between two MyToken objects based on <strong>value and type</strong>.
+     * @param obj the MyToken object we are comparing against
      * @return {@code true} if the Tokens are equal (have the same value and type), {@code false} otherwise.
      */
     @Override
@@ -142,7 +197,7 @@ public class Token implements Comparable<Token> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Token token = (Token) obj;
+        MyToken token = (MyToken) obj;
         // field comparison
         return Objects.equals(value, token.value)
                 && Objects.equals(type, token.type);

@@ -19,7 +19,7 @@ public class CalculatorEngineTest {
     public void parseToRPN_test1() throws ParseException {
         //Assertions.assertTrue(calcEng.parseToRPN("(1+2)"));
 
-        Assertions.assertEquals(List.of("1", "2", "+"), calcEng.getRPNStack());
+        //Assertions.assertEquals(List.of("1", "2", "+"), calcEng.getRPN());
 
     }
 
@@ -38,7 +38,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test3() throws ParseException {
         //Assertions.assertTrue(calcEng.parseToRPN(""));
-        //Assertions.assertTrue(calcEng.getRPNStack().empty());
+        //Assertions.assertTrue(calcEng.getRPN().empty());
     }
 
     /**
@@ -96,7 +96,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test8() {
         //Assertions.assertTrue(calcEng.parseToRPN("-2"));
-        Assertions.assertEquals(List.of("0", "2", "-"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("0", "2", "-"), calcEng.getRPN());
     }
 
     /**
@@ -105,7 +105,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test9() {
         //Assertions.assertTrue(calcEng.parseToRPN("+1"));
-        Assertions.assertEquals(List.of("1"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("1"), calcEng.getRPN());
     }
 
     /**
@@ -114,7 +114,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test10() {
         //Assertions.assertTrue(calcEng.parseToRPN("--2"));
-        Assertions.assertEquals(List.of("0", "0", "2", "-"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("0", "0", "2", "-"), calcEng.getRPN());
     }
 
     /**
@@ -123,7 +123,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test0() {
         //Assertions.assertTrue(calcEng.parseToRPN("-----2"));
-        Assertions.assertEquals(List.of("-2"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("-2"), calcEng.getRPN());
     }
 
     /**
@@ -132,7 +132,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test0000() {
         //Assertions.assertTrue(calcEng.parseToRPN("1--2"));
-        Assertions.assertEquals(List.of("3"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("3"), calcEng.getRPN());
     }
 
     /**
@@ -141,7 +141,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test00000() {
         //Assertions.assertTrue(calcEng.parseToRPN("1++2"));
-        Assertions.assertEquals(List.of("3"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("3"), calcEng.getRPN());
     }
 
     /**
@@ -150,7 +150,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test000000() {
         //Assertions.assertTrue(calcEng.parseToRPN("1-+2"));
-        Assertions.assertEquals(List.of("-1"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("-1"), calcEng.getRPN());
     }
 
     /**
@@ -159,7 +159,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test0000000() {
         //Assertions.assertTrue(calcEng.parseToRPN("-1+-2"));
-        Assertions.assertEquals(List.of("-3"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("-3"), calcEng.getRPN());
     }
 
     /**
@@ -168,7 +168,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test00() {
         //Assertions.assertTrue(calcEng.parseToRPN("+-2"));
-        Assertions.assertEquals(List.of("-2"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("-2"), calcEng.getRPN());
     }
 
     /**
@@ -177,7 +177,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test000() {
         //Assertions.assertTrue(calcEng.parseToRPN("+-+-+---2"));
-        //assertEquals(List.of("-2"), calcEng.getRPNStack());
+        //assertEquals(List.of("-2"), calcEng.getRPN());
     }
 
     /**
@@ -186,7 +186,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test01() {
         //Assertions.assertTrue(calcEng.parseToRPN("2*2"));
-        Assertions.assertEquals(List.of("2", "2", "*"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("2", "2", "*"), calcEng.getRPN());
     }
 
     /**
@@ -195,7 +195,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test02() {
         //Assertions.assertTrue(calcEng.parseToRPN("4/2"));
-        Assertions.assertEquals(List.of("4", "2", "/"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("4", "2", "/"), calcEng.getRPN());
     }
 
     /**
@@ -204,7 +204,7 @@ public class CalculatorEngineTest {
     @Test
     public void parseToRPN_test03() {
         //Assertions.assertTrue(calcEng.parseToRPN("2^3"));
-        Assertions.assertEquals(List.of("2", "2", "*"), calcEng.getRPNStack());
+        Assertions.assertEquals(List.of("2", "2", "*"), calcEng.getRPN());
     }
 
     /**
