@@ -22,7 +22,6 @@ public class Calculator {
     /**
      * Execute the user's expression.
      * @param expression the expression being evaluated.
-     * @return the result of the calculation as a String.
      */
     public void calculate(String expression) {
 

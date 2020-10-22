@@ -267,7 +267,7 @@ public class CalculatorEngine {
             System.out.println("[Error] Evaluation failed: check that all functions/operators have the correct number of operands.");
             return null;
         } else {    // SUCCESS
-            return new DecimalFormat("##########0.#####").format(outputStack.pop());
+            return new DecimalFormat("##########0.##########").format(outputStack.pop());
         }
     }
 
@@ -278,7 +278,7 @@ public class CalculatorEngine {
      * @return {@code true} if they are essentially equal (within a certain threshold).
      */
     private static boolean areEqual(double a, double b) {
-        double threshold = 0.000001;
+        double threshold = 0.0000000001;
         return (Math.abs(a - b) <= threshold);
     }
 
@@ -294,7 +294,7 @@ public class CalculatorEngine {
         for (Token tok : RPN) {
             if (tok instanceof NumberToken) {
                 NumberToken numTok = (NumberToken) tok;
-                strRPN += new DecimalFormat("##########0.#####").format(numTok.getValue());
+                strRPN += new DecimalFormat("##########0.##########").format(numTok.getValue());
             } else if (tok instanceof OperatorToken) {
                 OperatorToken opTok = (OperatorToken) tok;
                 strRPN += opTok.getOperator().getSymbol();

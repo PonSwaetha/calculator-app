@@ -101,19 +101,21 @@ Use parentheses to elevate the evaluation precedence of an expression or sub-exp
   
 
 # Usage
+Executable calculator-1.0.jar file is located in \target directory.
 
 With command-line argument:
 ```
-calculator.exe (12-(2^2)*2)/-4
+java -jar calculator-1.0.jar "(12-(2^2)*2)/-4"
 -1
-calculator.exe 2+4-(12/-3)
+java -jar calculator-1.0.jar "2+4-(12/-3)"
 10
-calculator.exe (1+(2+3)
+java -jar calculator-1.0.jar "(1+(2+3)"
 [Error] Mismatched parenthesis.
 ```
 
 Without command-line argument:
 ```
+java -jar calculator-1.0.jar
 Welcome to Eli's Text-based Calculator v1.0
 Supported operations: +, -, *, /, ^, sin(), cos(), tan(), cot(), ln(), log().
 Type "EXIT" to exit the app.
@@ -123,6 +125,8 @@ Type "EXIT" to exit the app.
 10
 >> (1+(2+3)
 [Error] Mismatched parenthesis.
+>> EXIT
+
 ```
    
 ## Rules
