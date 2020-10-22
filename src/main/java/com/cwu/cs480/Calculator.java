@@ -8,7 +8,10 @@ import java.util.Scanner;
 public class Calculator {
 
     private static final String WELCOME_MSG =
-            "Calculator App\nSupported operations: +, -, *, /, ^, sin(), cos(), tan(), cot(), ln(), log().\n";
+            "Welcome to Eli's Text-based Calculator v1.0\n" +
+                    "Supported operations: +, -, *, /, ^, sin(), cos(), tan(), cot(), ln(), log().\n" +
+                    "Type \"EXIT\" to exit the app.";
+
     private static final String EXIT_CMD = "EXIT";
     private CalculatorEngine engine;
 
@@ -41,7 +44,7 @@ public class Calculator {
         String input = "";
         Scanner keyboard = new Scanner(System.in);
         System.out.print(">> ");
-        input = keyboard.next();
+        input = keyboard.nextLine();
         return input.stripLeading().stripTrailing();    // remove leading/trailing whitespace
     }
 
@@ -55,17 +58,20 @@ public class Calculator {
 
         // if user entered expression via command-line argument
         if (args.length == 1) {
-            calculator.calculate(args[0].stripLeading().stripTrailing());
+            calculator.calculate(args[0].replace(" ", ""));
+            return;
+        } else if (args.length > 1) {
+            System.out.println("[Error] Too many command-line arguments. Exiting...");
             return;
         }
 
         System.out.println(WELCOME_MSG);
-        calculator.calculate("*-5.78+-(4-2.23)+sin(0)*cos(1)/(1+tan(2*ln(-3+2*(1.23+99.111))))");
+
         // loop until user enters the exit command
         for (String expression = calculator.getInput(); expression.compareToIgnoreCase(EXIT_CMD) != 0;
              expression = calculator.getInput()) {
 
-            calculator.calculate(expression);
+            calculator.calculate(expression.replace(" ", ""));
         }
     }
 

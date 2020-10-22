@@ -1,6 +1,6 @@
-# CalculatorEngine
+# Calculator
 
-CalculatorEngine is a simple text-based calculator app made in Java.
+Calculator is a simple text-based calculator app made in Java. It features the basic arithmetic operators, as well as a few trigonometric and logarithmic functions. 
    
 
 ## Operands
@@ -104,20 +104,38 @@ Use parentheses to elevate the evaluation precedence of an expression or sub-exp
 
 With command-line argument:
 ```
-calculator (12-(2^2)*2)/-4
-Output: 4
+calculator.exe (12-(2^2)*2)/-4
+-1
+calculator.exe 2+4-(12/-3)
+10
+calculator.exe (1+(2+3)
+[Error] Mismatched parenthesis.
 ```
 
 Without command-line argument:
 ```
-calculator
-Enter an expression: (12-(2^2)*2)/-4
-Output: 4
+Welcome to Eli's Text-based Calculator v1.0
+Supported operations: +, -, *, /, ^, sin(), cos(), tan(), cot(), ln(), log().
+Type "EXIT" to exit the app.
+>> (12-(2^2)*2)/-4
+-1
+>> 2+4-(12/-3)
+10
+>> (1+(2+3)
+[Error] Mismatched parenthesis.
 ```
    
 ## Rules
 * Each operator must be used with its respective number of operands.
     - eg. The expression "*10/5*" is valid, but "*/5*" is missing its left operand.
 * No mismatched grouping parentheses; each '(' requires a matching ')'.
-* Function-call parentheses are mandatory.
+* **Function-call parentheses are mandatory.**
+* Trigonometric function arguments are in **degrees**.
 * **Spaces are optional and have no effect on expression evaluation.**
+
+# Credits
+
+exp4j - https://www.objecthunter.net/exp4j/  
+* implementation of Dijkstra's Shunting Yard Algorithm   
+
+

@@ -88,7 +88,7 @@ class MyTokenTest {
 
     @Test
     void isTokenUnaryOperator_valid1() {
-        String[] tokens = {"^", "-", "sin", "cos", "tan", "cot", "log", "ln"};
+        String[] tokens = {"-", "sin[", "cos[", "tan[", "cot[", "log[", "ln["};
         assertAll("Unary operators (VALID)",
                 () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[0])),
                 () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[1])),
@@ -96,8 +96,7 @@ class MyTokenTest {
                 () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[3])),
                 () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[4])),
                 () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[5])),
-                () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[6])),
-                () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[7]))
+                () -> assertTrue(MyToken.isToken(MyToken.Type.UNARY_OPERATOR, tokens[6]))
         );
     }
 
@@ -162,30 +161,5 @@ class MyTokenTest {
                 () -> assertFalse(MyToken.isToken(MyToken.Type.OPERAND, tokens[10])),
                 () -> assertFalse(MyToken.isToken(MyToken.Type.OPERAND, tokens[11]))
         );
-    }
-
-
-    @Test
-    void testisToken() {
-    }
-
-    @Test
-    void testOpPrecedence() {
-    }
-
-    @Test
-    void testCompareTo() {
-    }
-
-    @Test
-    void testEquals1() {
-    }
-
-    @Test
-    void testHashCode1() {
-    }
-
-    @Test
-    void testIsParsable() {
     }
 }

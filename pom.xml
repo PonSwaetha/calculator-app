@@ -45,11 +45,13 @@
           <version>RELEASE</version>
           <scope>compile</scope>
       </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
     <dependency>
       <groupId>net.objecthunter</groupId>
       <artifactId>exp4j</artifactId>
       <version>0.4.8</version>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -76,6 +78,14 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <mainClass>com.cwu.cs480.Calculator</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
