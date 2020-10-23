@@ -139,7 +139,11 @@ Type "EXIT" to exit the app.
 
 # Credits
 
-exp4j - https://www.objecthunter.net/exp4j/  
-* implementation of Dijkstra's Shunting Yard Algorithm   
-
-
+exp4j library  
+* implementation of Dijkstra's Shunting Yard Algorithm
+* Token class & its utilities <br>
+Source: https://www.objecthunter.net/exp4j/
+   
+apache/commons/lang3/math/NumberUtils
+* isParsable() and withDecimalsParsing() methods used for validating real number operands <br>
+Source: https://commons.apache.org/proper/commons-lang/apidocs/src-html/org/apache/commons/lang3/math/NumberUtils.html#line.1721
