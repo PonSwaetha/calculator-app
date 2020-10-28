@@ -46,7 +46,7 @@ Syntax: *&lt;expression&gt; &lt;operator&gt;  &lt;expression&gt;*
    
 
 ## Unary operators
-Negation syntax: *&lt;expression&gt; &lt;operator&gt;* <br>
+Negation syntax: *&lt;operator&gt; &lt;expression&gt;* <br>
 Function syntax: *&lt;operator&gt; (&lt;expression&gt;)*
 
 <table>
