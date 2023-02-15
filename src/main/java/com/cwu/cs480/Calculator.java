@@ -16,6 +16,7 @@ public class Calculator {
     private CalculatorEngine engine;
 
     Calculator() {
+        System.out.println("hello");
         engine = new CalculatorEngine();
     }
 
