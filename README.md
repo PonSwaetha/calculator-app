@@ -5,7 +5,7 @@ Calculator is a simple text-based calculator app made in Java. It features the b
 
 ## Operands
    
-Composed of real numbers which fit within the bounds of an 8-byte double variable.
+Composed of real numbers which fit within the bounds of an 8-byte double variable..
    
 
 ## Binary operators
