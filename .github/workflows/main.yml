@@ -1,0 +1,21 @@
+name: Snyk Scan
+# testing sample DevOps with Git workflow
+on:
+  push:
+    branches:
+      - master  # Modify this to match your repository's main branch
+  pull_request:
+    branches: [ "master" ]    
+
+ 
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Authenticate Snyk now
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} # Add your Snyk token to GitHub Secrets
